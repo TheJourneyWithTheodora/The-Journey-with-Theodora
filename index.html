@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>The Journey with Theodora</title>
+
+<style>
+
+body{
+margin:0;
+font-family:Arial;
+color:black;
+text-align:center;
+overflow-x:hidden;
+}
+
+/* NAVIGATION BAR */
+
+nav{
+  position:fixed;
+  top:0;
+  width:100%;
+  padding:12px 16px;
+  z-index:1000;
+  background:rgba(0,0,0,0.85);
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:center;
+  gap:8px;
+}
+
+nav button{
+  background:none;
+  border:none;
+  color:white;
+  font-size:16px;
+  margin:4px;
+  cursor:pointer;
+  padding:10px 14px;
+  border-radius:6px;
+}
+
+@media (max-width: 480px) {
+  nav button {
+    font-size:14px;
+    padding: 10px 12px;
+  }
+}
+
+nav button:hover{
+background:#00bfff;
+border-radius:5px;
+}
+
+/* SECTIONS */
+
+.section{
+  display:none;
+  position:relative;
+  min-height:100vh;
+  padding:120px 20px 60px;
+  background-size:contain;
+  background-position:center;
+  background-repeat:no-repeat;
+  background-attachment: scroll;
+  background-color:#000;
+  animation:fade 1.5s;
+
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  text-align:center;
+}
+
+/* Make the background behave better on mobile */
+@media (max-width: 768px) {
+  .section {
+    padding: 100px 16px 60px;
+    background-attachment: scroll;
+  }
+}
+
+/* POPUP ANIMATION */
+
+@keyframes fade{
+from{opacity:0; transform:scale(1.1);}
+to{opacity:1; transform:scale(1);}
+}
+
+/* CONTENT BOX */
+
+.content{
+  width: min(92%, 720px);
+  padding: 40px 32px;
+  border-radius:10px;
+  background: rgba(0, 0, 0, 0.7);
+  color: #fff;
+  text-align: left;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.45);
+}
+
+@media (max-width: 600px) {
+  .content {
+    padding: 28px 20px;
+  }
+}
+
+.content h1 {
+font-size: clamp(2.5rem, 4vw, 3.2rem);
+margin-bottom: 1rem;
+font-weight: 700;
+}
+
+.content p {
+font-size: clamp(1.2rem, 2.8vw, 1.4rem);
+line-height: 1.9;
+margin-bottom: 1.2rem;
+}
+
+.content strong {
+color: #fff;
+font-weight: 600;
+}
+
+.content h2, .content h3 {
+font-size: clamp(1.8rem, 3vw, 2.4rem);
+margin-top: 1.5rem;
+margin-bottom: 0.8rem;
+}
+
+.section { color:#fff; }
+
+.section::after {
+content: "";
+position: absolute;
+inset: 0;
+background: rgba(0, 0, 0, 0.5);
+z-index: 0;
+}
+
+.section .content {
+position: relative;
+z-index: 1;
+}
+
+/* Booking form appearance (matches example screenshot) */
+#booking .content {
+  background: transparent;
+  color: #111;
+  box-shadow: none;
+  padding: 0;
+}
+
+#booking .container {
+  width: min(520px, 92%);
+  margin: 0 auto;
+  background: #fff;
+  padding: 32px 26px;
+  border-radius: 16px;
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.18);
+  text-align: left;
+}
+
+#booking .container h2 {
+  margin-top: 0;
+  font-size: 2rem;
+}
+
+#booking .container input,
+#booking .container textarea {
+  width: 100%;
+  padding: 14px 12px;
+  margin: 10px 0 16px;
+  border: 1px solid rgba(0,0,0,0.15);
+  border-radius: 12px;
+  background: #fafafa;
+  font-size: 1rem;
+  color: #1a1a1a;
+}
+
+#booking .container button {
+  background: #007bff;
+  color: #fff;
+  border: none;
+  padding: 14px 18px;
+  width: 100%;
+  border-radius: 12px;
+  font-size: 1rem;
+  cursor: pointer;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+#booking .container button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 14px 30px rgba(0,0,0,0.15);
+}
+
+/* SERVICE BUTTONS */
+
+.serviceBtn{
+background:#00bfff;
+border:none;
+padding:12px 20px;
+margin:10px;
+font-size:16px;
+cursor:pointer;
+border-radius:5px;
+color:white;
+}
+
+.serviceBtn:hover{
+background:#007acc;
+}
+
+/* Quick contact icons */
+.contact-buttons{
+  display:flex;
+  justify-content:center;
+  gap:14px;
+  flex-wrap:wrap;
+  margin-top:18px;
+}
+
+.contact-buttons a{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  padding:12px 16px;
+  border-radius:10px;
+  background: rgba(0, 123, 255, 0.85);
+  color: #fff;
+  text-decoration:none;
+  font-weight:700;
+  transition: transform 0.2s ease, background 0.2s ease;
+}
+
+.contact-buttons a:hover{
+  background: rgba(0, 123, 255, 1);
+  transform: translateY(-2px);
+}
+
+.contact-buttons img{
+  width:24px;
+  height:24px;
+  object-fit:contain;
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- NAVIGATION -->
+<nav>
+<button onclick="showSection('home')">Home</button>
+<button onclick="showSection('about')">About Us</button>
+<button onclick="showSection('services')">Services</button>
+<button onclick="showSection('contact')">Contact Information</button>
+<button onclick="showSection('booking')">Booking</button>
+</nav>
+
+<!-- HOME -->
+
+<div id="home" class="section" style="display:block; background-image:url(H.jpg);">
+<div class="content">
+<strong><h1>The Journey with Theodora</h1></strong>
+<p><strong>The Journey with Theodora</strong> is a private counselling and wellness practice dedicated to providing compassionate, ethical, and professional psychological support to individuals navigating personal challenges, relationships, and life transitions.</p>
+<p>The practice offers a safe, confidential, and non-judgmental environment where individuals can explore their experiences, develop emotional resilience, and work toward personal growth and well-being.</p>
+<p>The practice is symbolised through <strong>blank line art drawings that represent the counselling journey</strong>. These drawings illustrate the connection between the counsellor and the survivor, who work together to gradually bring colour and healing into the artwork. In the same way, the counselling process supports individuals as they move from difficult experiences toward healing, clarity, and a more vibrant life.</p>
+</div>
+</div>
+<!-- ABOUT -->
+
+<div id="about" class="section" style="background-image:url(A.jpg);">
+<div class="content">
+<strong><h1>About Us</h1></strong>
+<p><strong><h2>About the Practice</h2></strong></p>
+<p><strong>The Journey with Theodora</strong> was founded with the purpose of supporting individuals as they navigate life’s complexities, emotional challenges, and important personal decisions.</p>
+<p>The practice is grounded in the belief that every individual has the capacity for growth, healing, and transformation when supported in a safe and supportive environment.</p>
+<p>Through evidence-informed counselling approaches, the practice assists clients in developing self-awareness, strengthening coping strategies, and building the confidence needed to move forward in their personal journeys.</p>
+<p><strong><h2> About the Counsellor</h2></strong></p>
+<p><strong><h3> Theodora Masalesa</h3></strong></p>
+<p><strong>Registered Wellness Counsellor – ASCHP</strong></p>
+<p><strong>Registration Number:</strong>WC25/17124</p>
+<p><strong>Theodora Masalesa</strong> is a registered Wellness Counsellor with the <strong>Association for Supportive Counsellors and Holistic Practitioners (ASCHP)</strong>. She is passionate about providing psychological support, emotional guidance, and empowerment to individuals and communities.</p>
+<p>Her professional journey began during her time as a student when she volunteered in support services assisting individuals experiencing trauma and crisis. During this period, she gained valuable experience in crisis intervention, survivor support, and community-based assistance.</p>
+<p>After four months of volunteering, she was appointed as an <strong>Intervention Specialist</strong>, where she further developed her skills in counselling support, case management, and advocacy for vulnerable individuals.</p>
+<p>Theodora holds a <strong>Bachelor of Arts in Health Sciences and Social Services </strong>from the<strong> University of South Africa (UNISA)</strong>, with majors in <strong>Community Psychology</strong> and <strong>Health Psychology</strong>.She has also completed a <strong>Personal Growth and Counselling Skills</strong> course through <strong>Lifeline Johannesburg</strong>, further strengthening her professional counselling competencies.</p>
+<p>Her work is guided by empathy, professionalism, and a strong commitment to ethical and client-centred care.</p>
+</div>
+</div>
+
+<!-- SERVICES -->
+
+<div id="services" class="section" style="background-image:url(S.jpg);">
+<div class="content">
+<h1>Our Services</h1>
+<p>The practice provides counselling and emotional support services designed to promote personal development, psychological well-being, and healthy relationships.</p>
+
+<button class="serviceBtn" onclick="showSection('career')">Career Guidance for Youth</button>
+
+<button class="serviceBtn" onclick="showSection('relationship')">Relationship Counselling</button>
+
+<button class="serviceBtn" onclick="showSection('psychological')">Psychological and Emotional Support</button>
+<p><strong><h2>  Therapeutic Approach</h2></strong></p>
+<p>The counselling approach at <strong>The Journey with Theodora</strong> is <strong>client-centred, trauma-informed, and strengths-based.</strong></p>
+<p>Each counselling process is collaborative and tailored to the unique experiences, needs, and goals of the client. The aim is to create a supportive environment where individuals feel heard, respected, and empowered to explore their experiences and develop meaningful strategies for change.</p>
+<p>Through this process, clients are supported in building self-understanding, emotional balance, and the confidence to move forward in their personal and professional lives.</p>
+<p><strong><h2>Why Choose The Journey with Theodora</h2></strong></p>
+<p>The practice is committed to providing ethical and compassionate care that prioritises the well-being and dignity of every client.</p>
+<p><strong><h3>Key values include:</h3></strong></p>
+<p>• A safe, confidential, and supportive counselling environment</p>
+<p>• Trauma-informed and ethical practice</p>
+<p>• Specialised focus on youth career guidance</p>
+<p>• Experience supporting individuals facing complex and sensitive challenges</p>
+<p>• Compassionate, respectful, and non-judgmental care</p>
+</div>
+</div>
+
+<!-- CAREER GUIDANCE -->
+
+<div id="career" class="section" style="background-image:url(CG.jpg);">
+<div class="content">
+<h1>Career Guidance for Youth</h1>
+<p>This service provides support for young individuals navigating academic pressures, career uncertainty, and major life transitions.</p>
+<p><strong><h2> Key focus areas include:</h2></strong></p>
+<p>• Career exploration and informed decision-making</p>
+<p>• Identifying personal strengths, interests, and values</p>
+<p>• Building confidence and motivation</p>
+<p>• Coping with academic pressure and uncertainty</p>
+<p>• Goal setting and future planning</p>
+</div>
+</div>
+
+<!-- RELATIONSHIP COUNSELLING -->
+
+<div id="relationship" class="section" style="background-image:url(RE.jpg);">
+<div class="content">
+<h1>Relationship Counselling</h1>
+<p>Relationship counselling provides support for individuals experiencing challenges within personal, family, or romantic relationships.</p>
+<p><strong><h2> Focus areas include:</h2></strong></p>
+<p>• Communication difficulties</p>
+<p>• Emotional awareness and self-esteem</p>
+<p>• Developing healthy personal boundaries</p>
+<p>• Family and peer relationship challenges</p>
+<p>• Understanding and improving relationship patterns</p>
+</div>
+</div>
+
+<!-- PSYCHOLOGICAL SUPPORT -->
+
+<div id="psychological" class="section" style="background-image:url(P.jpg);">
+<div class="content">
+<h1>Psychological and Emotional Support</h1>
+<p>The practice provides compassionate support to individuals experiencing emotional distress, trauma, or overwhelming life circumstances.</p>
+<p><strong><h2> Areas of support include:</h2></strong></p>
+<p>• Gender-based violence</p>
+<p>• Sexual abuse and domestic violence</p>
+<p>• Trauma and emotional distress</p>
+<p>• Personal growth and self-development</p>
+<p>• Emotional regulation and coping strategies</p>
+</div>
+</div>
+
+<!-- CONTACT -->
+
+<div id="contact" class="section" style="background-image:url(C.jpg);">
+<div class="content">
+<h1>Contact Information</h1>
+<p>Individuals who are ready to begin their counselling journey or would like further information are welcome to make contact.</p>
+<div class="contact-buttons">
+  <a href="mailto:thejourneywiththeodora@gmail.com" aria-label="Email The Journey with Theodora">
+    <img src="download.jpg" alt="Email icon">
+    Email Us
+  </a>
+  <a href="tel:+27768717633" aria-label="Call The Journey with Theodora">
+    <img src="download (1).png" alt="Phone icon">
+    Call Us
+  </a>
+</div>
+</div>
+</div>
+
+<!-- BOOKING -->
+
+<div id="booking" class="section" style="background-image:url(B.jpg);">
+<div class="content">
+<p><strong><h1>Booking</h1></strong></p>
+<p><strong><h2>Session Format:</h2></strong></p>
+<p><strong>Online sessions only (Telephone, Zoom, and WhatsApp)</strong></p>
+<p><strong><h2> Operating Hours:</h2></strong></p>
+<p><strong>Monday – Saturday</strong></p>
+<p><strong>09:00 – 20:00</strong></p>
+<p><strong><h2> Sessions are available by appointment only.</h2></strong></p>
+<div class="container">
+<h2>Send us a message</h2>
+<form action="https://formsubmit.co/thejourneywiththeodora@gmail.com" method="POST">
+<input type="text" name="name" placeholder="Name" required>
+<input type="email" name="email" placeholder="Email" required>
+<input type="number" number="phone number" placeholder="Phone Number" required>
+<input type="text" name="subject" placeholder="Subject">
+<textarea name="How can we help you?" rows="6" placeholder="How can we help you?"></textarea>
+<button type="submit">Send Message</button>
+</form>
+</div>
+</div>
+
+<script>
+
+function showSection(sectionId){
+  let sections=document.querySelectorAll(".section");
+
+  sections.forEach(function(section){
+    section.style.display="none";
+  });
+
+  const target = document.getElementById(sectionId);
+  target.style.display="block";
+  updateParallax();
+}
+
+function updateParallax(){
+  const sections = document.querySelectorAll('.section');
+  sections.forEach(section => {
+    if(section.style.display !== 'none'){
+      const y = window.scrollY * 0.25;
+      section.style.backgroundPosition = `center calc(50% + ${y}px)`;
+    }
+  });
+}
+
+window.addEventListener('scroll', updateParallax);
+window.addEventListener('resize', updateParallax);
+updateParallax();
+
+</script>
+
+</body>
+</html>
